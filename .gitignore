@@ -1,0 +1,11 @@
+# node modules
+/node_modules
+
+# Dist
+/dist
+
+# Logger
+*.log
+
+# Environment Variable
+.env
