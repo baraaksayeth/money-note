@@ -1,13 +1,14 @@
 import express from "express";
 import { errorMiddleware, loadMiddleware } from "./loaders/express-loader";
+import logger from "./services/logger";
 import env from "./config";
 
 function exitOnHandler(server) {
   async function exitHandler(option = {}) {
     await server
       .close()
-      .then(() => console.log(`server exit`))
-      .catch(e => console.log(`error when server exit in stack ${e.stack}`));
+      .then(() => logger.info("Server Exit"))
+      .catch(e => logger.error(`error when server exit in stack ${e.stack}`));
 
     if (option.exit) {
       process.exit();
@@ -29,8 +30,7 @@ function startServer() {
 
   return new Promise(resolve => {
     const server = app.listen(env.PORT, () => {
-      console.log(`Server Running on port ${env.PORT}`);
-
+      logger.info(`Server Running on PORT ${env.PORT}`);
       const originalClose = server.close.bind(server);
       server.close = () =>
         new Promise(resolveClose => resolveClose(originalClose));
