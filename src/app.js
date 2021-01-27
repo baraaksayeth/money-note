@@ -31,6 +31,7 @@ function startServer() {
   return new Promise(resolve => {
     const server = app.listen(env.PORT, () => {
       logger.info(`Server Running on PORT ${env.PORT}`);
+
       const originalClose = server.close.bind(server);
       server.close = () =>
         new Promise(resolveClose => resolveClose(originalClose));

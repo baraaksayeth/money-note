@@ -1,5 +1,10 @@
 import startServer from "./app";
+import logger from "./services/logger";
+import { dbConnection } from "./repository/connection";
 
-startServer()
-  .then()
-  .catch(err => console.log(err));
+dbConnection()
+  .then(() => startServer())
+  .then(() =>
+    logger.info("Database and server etabilished running successfully")
+  )
+  .catch(err => logger.error(err));
