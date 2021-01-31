@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ",
+    "migration": "nodemon --exec babel-node src/repository/migration ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -1,15 +1,15 @@
 function walletModel(DataTypes, sequelize) {
   return sequelize.define("Wallet", {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
     },
     user_id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "User",
+        model: "Users",
         key: "id",
       },
     },

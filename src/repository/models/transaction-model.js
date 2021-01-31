@@ -3,15 +3,15 @@ function TransactionModel(DataTypes, sequelize) {
     "Transaction",
     {
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
       },
       user_id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "User",
+          model: "Users",
           key: "id",
         },
       },
@@ -28,18 +28,18 @@ function TransactionModel(DataTypes, sequelize) {
         },
       },
       wallet_id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Wallet",
+          model: "Wallets",
           key: "id",
         },
       },
       category_id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Category",
+          model: "Categories",
           key: "id",
         },
       },
