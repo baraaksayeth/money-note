@@ -3,7 +3,7 @@ function userModel(DataTypes, sequelize) {
     "User",
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
       },
@@ -16,7 +16,7 @@ function userModel(DataTypes, sequelize) {
         },
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.SRING,
       },
       password: {
         type: DataTypes.STRING,
@@ -24,7 +24,7 @@ function userModel(DataTypes, sequelize) {
       },
     },
     {
-      indexes: [{ unique: true, fields: ["email"] }],
+      indexes: [{ unique: true, fields: "email" }],
     }
   );
 }

@@ -3,8 +3,7 @@ function categoryModel(DataTypes, sequelize) {
     "Category",
     {
       id: {
-        type: DataTypes.UUID,
-        allowNull: false,
+        type: DataTypes.UUIDV4,
         primaryKey: true,
       },
       name: {
