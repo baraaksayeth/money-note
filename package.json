@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ",
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "migration": "nodemon --exec babel-node src/repository/migration ",
+    "test-service": "nodemon --exec babel-node src/services/category-service"
+>>>>>>> safe
   },
   "author": "",
   "license": "ISC",
