@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node ",
     "migration": "nodemon --exec babel-node src/repository/migration ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-service": "nodemon --exec babel-node src/services/category-service"
   },
   "author": "",
   "license": "ISC",
