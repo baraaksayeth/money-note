@@ -5,18 +5,15 @@ class CategoryService {
     this.sequelize = sequelize;
   }
 
-  async create(name) {
+  async create(data) {
     try {
-      const [data, metadata] = await this.sequelize.query(
+      const [result, metadata] = await this.sequelize.query(
         "INSERT INTO `categories` (id, name, createdAt, updatedAt) VALUES (:id, :name, now(), now()) ",
         {
-          replacements: {
-            id: "abc-adfd-efdasd12-ad",
-            name,
-          },
+          replacements: { id: data.id, name: data.name },
         }
       );
-      return data;
+      return result;
     } catch (err) {
       throw err.message;
     }
