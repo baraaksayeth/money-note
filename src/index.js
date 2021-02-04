@@ -1,6 +1,6 @@
 import startServer from "./app";
 import logger from "./services/logger";
-import { dbConnection } from "./repository/connection";
+import { dbConnection } from "./database/connection";
 
 dbConnection()
   .then(() => startServer())
