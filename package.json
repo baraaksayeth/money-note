@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ",
-    "migration": "nodemon --exec babel-node src/repository/migration ",
-    "test-service": "nodemon --exec babel-node src/services/category-service"
+    "migration": "nodemon --exec babel-node src/database/migration ",
+    "test-service": "nodemon --exec babel-node src/services/test"
   },
   "author": "",
   "license": "ISC",
