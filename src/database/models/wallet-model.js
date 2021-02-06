@@ -9,7 +9,7 @@ function walletModel(DataTypes, sequelize) {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "User",
+        model: "Users",
         key: "id",
       },
     },

@@ -11,7 +11,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "User",
+          model: "Users",
           key: "id",
         },
       },
@@ -31,7 +31,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Wallet",
+          model: "Wallets",
           key: "id",
         },
       },
@@ -39,7 +39,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Category",
+          model: "Categories",
           key: "id",
         },
       },
