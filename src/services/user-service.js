@@ -33,7 +33,7 @@ class UserService {
           replacements: {
             id: data.id,
             email: data.email,
-            name: data.email,
+            name: data.name,
             password: data.password,
           },
         }
