@@ -5,21 +5,22 @@ class UserService {
     this.logger = logger;
   }
 
-  async get(data, option = { queryManual: true }) {
+  async get(data, option = { queryManual: true, withoutPassword: true }) {
     try {
       let result;
       if (option.queryManual) {
-        result = await this.sequelize.query(
-          "SELECT * FROM `users` WHERE `email` = :email",
-          {
-            replacements: { email: data.email },
-            type: this.sequelize.QueryTypes.SELECT,
-          }
-        );
+        const query = option.withoutPassword
+          ? "SELECT `id`, `email`, `name` FROM `users` WHERE `email` = :email"
+          : "SELECT `id`, `email`, `name`, `password` FROM `users` WHERE `email` = :email";
+
+        result = await this.sequelize.query(query, {
+          replacements: { email: data.email },
+          type: this.sequelize.QueryTypes.SELECT,
+        });
       } else {
         result = await this.User.findOne({ email: data.email });
       }
-      return result;
+      return result[0];
     } catch (err) {
       throw err.message;
     }
@@ -27,7 +28,7 @@ class UserService {
 
   async create(data) {
     try {
-      const [result, metadata] = await this.sequelize.query(
+      await this.sequelize.query(
         "INSERT INTO `users` (`id`, `email`, `name`,  `password`, `createdAt`, `updatedAt`) VALUES (:id, :email, :name, :password, now(), now()) ",
         {
           replacements: {
@@ -38,7 +39,40 @@ class UserService {
           },
         }
       );
-      return result;
+    } catch (err) {
+      throw err.message;
+    }
+  }
+
+  async updateName(data) {
+    try {
+      await this.sequelize.query(
+        "UPDATE `users` SET `name` = :name, `updatedAt` = now() WHERE `id` = :id AND `email` = :email",
+        {
+          replacements: {
+            name: data.name,
+            email: data.email,
+            id: data.id,
+          },
+        }
+      );
+    } catch (err) {
+      throw err.message;
+    }
+  }
+
+  async resetPassword(data) {
+    try {
+      await this.sequelize.query(
+        "UPDATE `users` SET `password` = :password, `updatedAt` = now() WHERE `id` = :id AND `email` = :email",
+        {
+          replacements: {
+            password: data.password,
+            email: data.email,
+            id: data.id,
+          },
+        }
+      );
     } catch (err) {
       throw err.message;
     }
