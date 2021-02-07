@@ -22,7 +22,9 @@ class CategoryService {
   async getAll(option = { queryManual: false }) {
     let data;
     if (option.queryManual) {
-      data = await this.sequelize.query("SELECT * FROM categories");
+      data = await this.sequelize.query("SELECT * FROM categories", {
+        type: this.sequelize.QueryTypes.SELECT,
+      });
     } else {
       data = await this.Category.findAll();
     }
