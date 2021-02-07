@@ -11,14 +11,13 @@ const sequelize = new Sequelize({
   logging: msg => logger.debug(msg),
 });
 
-export function dbConnection() {
-  return new Promise((resolve, reject) => {
-    // Test Connection
-    sequelize
-      .authenticate()
-      .then(() => resolve(sequelize))
-      .catch(err => reject(err));
-  });
+async function dbConnection() {
+  try {
+    await sequelize.authenticate();
+  } catch (err) {
+    throw err.message;
+  }
 }
 
 export default sequelize;
+export { dbConnection };
