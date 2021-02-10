@@ -1,4 +1,5 @@
 import express from "express";
+import setRoutes from "./api/routes";
 import { errorMiddleware, loadMiddleware } from "./loaders/express-loader";
 import logger from "./services/logger";
 import env from "./config";
@@ -23,9 +24,10 @@ function exitOnHandler(server) {
 
 function startServer() {
   const app = express();
+  const route = express.Router();
 
   loadMiddleware(app);
-  app.get("/anjay", (req, res) => res.json({ msl: "Ok" }));
+  app.use("/api", setRoutes(route));
   errorMiddleware(app);
 
   return new Promise(resolve => {
