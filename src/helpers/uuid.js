@@ -1,5 +1,5 @@
-import uuid from "uuid";
+import { v4 as uuidV4 } from "uuid";
 
-export default function generateUUID(v) {
-  return uuid[v]();
+export default function generateUUID() {
+  return uuidV4();
 }

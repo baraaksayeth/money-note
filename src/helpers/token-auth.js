@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-function signinToken(payload, secret, option) {
+function signToken(payload, secret, option) {
   return new Promise((resolve, reject) => {
     try {
       const token = jwt.sign(payload, secret, option);
@@ -22,4 +22,4 @@ function verifyToken(token, secret) {
   });
 }
 
-export { signinToken, verifyToken };
+export { signToken, verifyToken };

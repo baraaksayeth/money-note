@@ -1,4 +1,4 @@
-function userModel(DataTypes, sequelize) {
+export default function UserModel(sequelize, DataTypes) {
   return sequelize.define(
     "User",
     {
@@ -25,8 +25,9 @@ function userModel(DataTypes, sequelize) {
     },
     {
       indexes: [{ unique: true, fields: ["email"] }],
+      timestamps: true,
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     }
   );
 }
-
-export default userModel;

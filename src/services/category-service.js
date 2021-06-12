@@ -1,16 +1,17 @@
 class CategoryService {
-  constructor(sequelize, Category, logger) {
-    this.Category = Category;
+  constructor({ db, logger, uuid }) {
+    this.Category = db.Category;
     this.logger = logger;
-    this.sequelize = sequelize;
+    this.sequelize = db.sequelize;
+    this.uuid = uuid;
   }
 
   async create(data) {
     try {
-      const [result, metadata] = await this.sequelize.query(
-        "INSERT INTO `categories` (id, name, createdAt, updatedAt) VALUES (:id, :name, now(), now()) ",
+      const [result] = await this.sequelize.query(
+        "INSERT INTO `categories` (id, name, created_at, updated_at) VALUES (:id, :name, now(), now()) ",
         {
-          replacements: { id: data.id, name: data.name },
+          replacements: { id: this.uuid(), name: data.name },
         }
       );
       return result;

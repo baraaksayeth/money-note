@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ",
+    "clean": "rimraf dist",
+    "transpile": "babel ./src --out-dir dist -s",
+    "build": "npm run clean && npm run transpile",
     "migration": "nodemon --exec babel-node src/database/migration ",
     "test-service": "nodemon --exec babel-node src/services/test"
   },
@@ -14,6 +17,7 @@
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.13.15",
     "@babel/preset-env": "^7.12.11",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -21,9 +25,12 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.0",
     "nodemon": "^2.0.6",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/uuid": "^8.3.0",
     "argon2": "^0.27.1",
     "awilix": "^4.3.1",
     "body-parser": "^1.19.0",
@@ -33,6 +40,7 @@
     "express": "^4.17.1",
     "helmet": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.2.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.4.17",
     "sequelize": "^6.3.5",

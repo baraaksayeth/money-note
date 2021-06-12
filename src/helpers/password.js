@@ -3,7 +3,7 @@ import argon from "argon2";
 async function generatePassword(password) {
   try {
     const hashedPassword = await argon.hash(password);
-    return hashedPassword;
+    return Promise.resolve(hashedPassword);
   } catch (err) {
     throw err.message;
   }
@@ -12,7 +12,7 @@ async function generatePassword(password) {
 async function verifyPassword(hashedPassword, password) {
   try {
     const isValid = await argon.verify(hashedPassword, password);
-    return isValid;
+    return Promise.resolve(isValid);
   } catch (err) {
     throw err.message;
   }

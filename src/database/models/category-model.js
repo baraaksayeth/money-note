@@ -1,4 +1,4 @@
-function categoryModel(DataTypes, sequelize) {
+export default function CategoryModel(sequelize, DataTypes) {
   return sequelize.define(
     "Category",
     {
@@ -14,8 +14,9 @@ function categoryModel(DataTypes, sequelize) {
     },
     {
       indexes: [{ unique: true, fields: ["name"] }],
+      timestamps: true,
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     }
   );
 }
-
-export default categoryModel;

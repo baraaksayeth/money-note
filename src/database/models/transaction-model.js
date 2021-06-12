@@ -1,5 +1,5 @@
-function TransactionModel(DataTypes, sequelize) {
-  return sequelize.define(
+export default function TransactionModel(sequelize, DataTypes) {
+  const Transaction = sequelize.define(
     "Transaction",
     {
       id: {
@@ -11,7 +11,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
       },
@@ -31,7 +31,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Wallets",
+          model: "wallets",
           key: "id",
         },
       },
@@ -39,7 +39,7 @@ function TransactionModel(DataTypes, sequelize) {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "Categories",
+          model: "categories",
           key: "id",
         },
       },
@@ -49,9 +49,30 @@ function TransactionModel(DataTypes, sequelize) {
       },
     },
     {
-      timestamps: false,
+      timestamps: true,
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     }
   );
-}
+  Transaction.association = db => {
+    db.User.hasMany(Transaction, { foreignKey: "user_id", as: "user" });
+    Transaction.belongsTo(db.User, {
+      foreignKey: "user_id",
+    });
 
-export default TransactionModel;
+    db.Wallet.hasMany(Transaction, { foreignKey: "wallet_id", as: "wallet" });
+    Transaction.belongsTo(db.Wallet, {
+      foreignKey: "wallet_id",
+    });
+
+    db.Category.hasMany(Transaction, {
+      foreignKey: "category_id",
+      as: "category",
+    });
+    Transaction.belongsTo(db.Category, {
+      foreignKey: "category_id",
+      as: "transaction",
+    });
+  };
+  return Transaction;
+}

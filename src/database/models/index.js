@@ -1,29 +1,22 @@
-import { DataTypes } from "sequelize";
+import Sequelize, { DataTypes } from "sequelize";
 import sequelize from "../connection";
-import categoryModel from "./category-model";
-import transactionModel from "./transaction-model";
-import walletModel from "./wallet-model";
-import userModel from "./user-model";
+import CategoryModel from "./category-model";
+import TransactionModel from "./transaction-model";
+import WalletModel from "./wallet-model";
+import UserModel from "./user-model";
 
-const Category = categoryModel(DataTypes, sequelize);
-const User = userModel(DataTypes, sequelize);
-const Wallet = walletModel(DataTypes, sequelize);
-const Transaction = transactionModel(DataTypes, sequelize);
+const db = {};
+db.Category = CategoryModel(sequelize, DataTypes);
+db.User = UserModel(sequelize, DataTypes);
+db.Wallet = WalletModel(sequelize, DataTypes);
+db.Transaction = TransactionModel(sequelize, DataTypes);
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-Category.hasMany(Transaction, { foreignKey: "category_id" });
-Transaction.belongsTo(Category, { foreignKey: "category_id" });
+Object.keys(db).forEach(key => {
+  if (db[key].association) {
+    db[key].association(db);
+  }
+});
 
-Wallet.hasMany(Transaction, { foreignKey: "wallet_id" });
-Transaction.belongsTo(Category, { foreignKey: "wallet_id" });
-
-User.hasMany(Wallet, { foreignKey: "user_id" });
-Wallet.belongsTo(User, { foreignKey: "user_id" });
-
-User.hasMany(Transaction, { foreignKey: "user_id" });
-Transaction.belongsTo(User, { foreignKey: "user_id" });
-
-async function migration() {
-  await sequelize.sync({ force: true });
-}
-
-export { User, Category, Wallet, Transaction, migration };
+export default db;
